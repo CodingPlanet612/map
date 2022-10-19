@@ -4,11 +4,6 @@ This project focuses on using data structures in C++ and implementing various gr
 
 <p align="center"><img src="img/TrojanMap.png" alt="Trojan" width="500" /></p>
 
-- Please clone the repository, read through [README.md](README.md) and implement the functions of the project.
-- Please make sure that your code can run `bazel run` and `bazel test`.
-- You need to fill in [trojanmap.cc](src/lib/trojanmap.cc), [mapui.cc](src/lib/mapui.cc) and maybe [mapui.h](src/lib/mapui.h), and add unit tests in the `tests` directory.
-- We will use autograder to grade some of the questions
-
 ---
 
 ## The Data Structure
@@ -36,93 +31,10 @@ class Node {
   std::unordered_set<std::string>
       attributes;  // List of the attributes of the location.
 };
-```
 
 ---
 
-## Prerequisites
-The details of environment setup will be reviewed in the discussion session. Please do not miss that class!
-
-### External Libraries Installation
-
-For visualization, we use `OpenCV` library. You will use this library as a black box and don't need to worry about the graphic details. Use the following commands to install OpenCV and other libraries.
-
-#### For Macos Users
-
-Step 1. type the following three lines in your terminal
-```shell
-$ brew install cmake
-$ brew install opencv
-$ brew install ncurses
-```
-
-Step 2.
-
-Check the installation paths of opencv and ncurses by
-
-```shell
-brew info opencv
-```
-
-and
-
-```shell
-brew info ncurses
-```
-
-respectively, and update their paths in the `WORKSPACE` file of your project root directory with the actual installation paths
-
-
-
-#### For Ubuntu users
-Step 1. 
-```shell
-$ cd **your project folder**
-$ git clone https://github.com/opencv/opencv.git
-$ sudo apt-get install cmake libgtk2.0-dev pkg-config
-$ sudo apt install libcanberra-gtk-module libcanberra-gtk3-module
-$ sudo apt-get install libncurses5-dev libncursesw5-dev
-$ cp ubuntu/* ./
-```
-
-Step 2. Make sure you set the **path_to_install_folder** to be the absolute path to the **install** folder under opencv when running the following commands
-
-```shell
-$ cd opencv/
-$ mkdir build install
-$ cd build
-$ cmake -D CMAKE_INSTALL_PREFIX=**path_to_install_folder** -D BUILD_LIST=core,highgui,imgcodecs,imgproc,videoio ..
-$ make install
-```
-
-For example, if cloned this repo under `"/Users/ari/github/TrojanMap"`, you should type:
-
-```shell
-$ cd opencv/
-$ mkdir build install
-$ cd build
-$ cmake -D CMAKE_INSTALL_PREFIX=/Users/ari/github/TrojanMap/opencv/install -D BUILD_LIST=core,highgui,imgcodecs,imgproc,videoio ..
-$ make install
-```
-
-## Run the program
-
-For MacOS users, run
-
-```shell
-$ bazel run src/main:main
-```
-
-For Ubuntu users, run
-               
-```shell
-$ bazel run --cxxopt='-std=c++17' src/main:main
-```
-
-If everything is correct, a menu similar to this will show up.
-
-```shell
-TrojanMap Menu
+# Map Menu
 **************************************************************
 * Enter the function number (1-11) to start:                  
 * 1. Autocomplete                                             
@@ -137,20 +49,6 @@ TrojanMap Menu
 * 10. Find Nearby                                              
 * 11. Exit                                                     
 **************************************************************
-```
-
-## Test The Program
-
-We created some tests for you to test your program, please run
-```shell
-$ bazel test tests:trojanmap_test
-```
-
-Please add you test in the [trojanmap_test_student.cc](tests/trojanmap_test_student.cc) and run
-
-```shell
-$ bazel test tests:trojanmap_test_student
-```
 
 ## Item 1: Autocomplete The Location Name (Phase 1)
 
@@ -541,79 +439,4 @@ Time taken by function: 5 ms
 <p align="center"><img src="img/Nearby.png" alt="Nearby" width="500"/></p>
 
 
-## Reporting Runtime:
-For each menu item, your program should show the time it took to finish each task.
-
-Please make sure to provide various examples when you report the runtime. For example for topological sort, show an example with few nodes and another example with 10 or more nodes. The idea is to see how your runtime grows as input size grows.
-
-## Runtime Comparison
-For shortest path algorithms, you should compare solving the same problem with different algorithms (Dijkstra and Bellman-Ford). 
-Please show the results on at least 3 different examples.
-
-Similarly for the TSP problem, please provide various examples that show the runtime comparison. In particular, you should show at what point using the exhaustive search is not practical and compare the same input with the heuristic implementation.
-
-**Please provide a table like below that compares the runtime of your algorithms for different number of nodes:**
-
-| Number of nodes      | Time with algorithm 1 | Time with algorithm 2|
-| -------------------- | ----------- |----|
-|             |  t1        | t2    |
-
-Your table should show have at least 15 rows.
-
-## Report and Rubrics:
-
-Your final project should be checked into Github. The [README.md](README.md) of your project is your report. 
-
-### Report:
-
-Your REPORT.md file should include four sections:
-Please create a new REPORT.md file and write your report there.
-
-1. High-level overview of your design (Use diagrams and pictures for your data structures).
-2. Detailed description of each function and its time complexity.
-3. Time spent for each function.
-4. Discussion, conclusion, and lessons learned.
-
-### Rubrics:
-
-- Item 1 (AutoComplete): 1 point. (Phase 1)
-- Item 2-1 (GetPosition): 1 point. (Phase 1)
-- Item 2-2 (EditDistance): 10 points. (Phase 2)
-- Item 3 (GetAllCategories): 3 Points. (Phase 2)
-- Item 4 (GetAllLocationsFromCategory): 5 Points. (Phase 2)
-- Item 5 (GetLocationRegex): 5 Points. (Phase 2)
-- Item 6 (Shortest path): 15 points. (Phase 2)
-   - Bellman-Ford implementation
-   - Dijkstra implementation
-   - Table/Plot for comparison, and measure and report time spent by two algorithms.
-- Item 7 (Cycle detection): 5 points. (Phase 2)
-   - Boolean value and draw the cycle if there exists one.
-- Item 8 (Topological Sort): 5 points (Phase 2)
-   - Check whether there exist a topological sort or not
-   - Return the correct order and plot those point on the map
-- Item 9 (Traveling Trojan) (Phase 3)
-   - Brute-force: 5 points.
-   - Brute-force enhanced with early backtracking: 5 points.
-   - 2-opt: 10 points.
-   - Animated plot: 5 points.
-- Item 10 (FindNearby): 5 points. (Phase 3)
-   - Return the correct ids and draw the points.
-- Creating reasonable unit tests: 10 points.
-      - Three different unit tests for each function.
-- Video presentation and report: 10 points. (Phase 3)
-
-
-
-## Extra credit items: Maximum of 20 points:
-   1. Implementation of [3-opt](http://cs.indstate.edu/~zeeshan/aman.pdf): 10 points.
-   2. [Genetic algorithm](https://www.geeksforgeeks.org/traveling-salesman-problem-using-genetic-algorithm/) implementation for Traveling Trojan: 10 points
-   3. Create dynamic and animated UI using [ncurses](https://en.wikipedia.org/wiki/Ncurses): 10 points
-      - Uncomment #define NCURSES in main.cc and mapui.h
-      - Create your menu in DynamicPrintMenu().
-      - You could check https://github.com/ourarash/ncurses_bazel
-      - Please develope your own UI.
-      - Example
-         <p align="center"><img src="img/ncurses example.gif" alt="example" width="500"/></p>
-               
-   4. Accurate measurement of your algorithm runtime using [Google Benchmark](https://www.youtube.com/watch?v=9VKR8u9odrA) while sweeping the input size and providing a diagram of how the runtime grows based on the input size: 10 points.
 
