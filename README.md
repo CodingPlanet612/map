@@ -1,4 +1,4 @@
-## TrojanMap
+## Map
 
 This project focuses on using data structures in C++ and implementing various graph algorithms to build a map application.
 
